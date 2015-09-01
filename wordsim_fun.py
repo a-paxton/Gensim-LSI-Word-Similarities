@@ -20,4 +20,4 @@ def wordsim(word1,word2,target_dictionary,target_lsi_model):
     
     # if the word isn't in the topic space, kick back an error
     else:
-        raise RuntimeError('Word not found in list.')
+        raise RuntimeError('Word pair not found in topic space: '+str(word1)+','+str(word2)+'.')

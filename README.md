@@ -6,7 +6,7 @@ Two simple little functions to create word-word similarities from Gensim's laten
 <p>Includes two functions:
 <ul>
 <li><b>wordsim</b>: Create cosine-derived similarity score (from 0-1) between individual words. Input: </li>
-<ul>
+<br><ul>
 <li><i>word1</i> (string or string variable)</li>
 <li><i>word2</i> (string or string variable)</li>
 <li><i>target_dictionary</i> (Gensim-created LSI dictionary)</li>

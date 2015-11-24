@@ -3,7 +3,7 @@ Two simple little functions to create word-word similarities from Gensim's laten
 
 <p>Both require Gensim, Pandas, and SciPy.
 
-<p>Includes two functions:
+<p>Includes four functions:
 <ul>
 <li><b>wordsim</b>: Create cosine-derived similarity score (from 0-1) between individual words. Input: </li>
 	<ul>

@@ -19,9 +19,9 @@ Two simple little functions to create word-word similarities from Gensim's laten
 	<li><i>target_dictionary</i> (Gensim-created LSI dictionary)</li>
 	<li><i>target_lsi_model</i> (Gensim-created LSI model)</li>
 	</ul>
-<li>Two additional functions/series of functions added (additional documentation available in each function and will be added here soon):</li>
+<li>Two additional functions/series of functions added (detailed documentation available in each function and will be added here soon):</li>
 	<ul>
-	<li>similarity score function for gensim's word2vec (word2vec_vect_sim_fun.py)</li>
-	<li>word-word similarity matrix function for gensim's LSI (LSA) model (word_pair_similarity_matrix.py)</li>
+	<li><b>word2vec_vect_sim_fun.py</b>: similarity score function for gensim's word2vec</li>
+	<li><b>word_pair_similarity_matrix.py</b>: word-word similarity matrix function for gensim's LSI (LSA) model</li>
 	</ul>
 </ul>

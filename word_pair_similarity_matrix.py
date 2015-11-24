@@ -104,7 +104,7 @@ def calculate_similarity_matrix(similarity_matrix,first_hdv_column_loc,second_hd
     loc2 = similarity_matrix[second_hdv_column_loc]
     
     # cycle through each word pair and calculate the similarity
-    return -1*dist.cosine(loc1,loc2)+1
+    return -1*dist.cosine(loc1,loc2)+1 # thanks to Rick Dale for this snippet
 
 
 ####
@@ -183,7 +183,7 @@ def all_in_one_similiarity_matrix(unique_word_vector,target_dictionary,target_ls
     def calculate_similarity_matrix(similarity_matrix,first_hdv_column_loc,second_hdv_column_loc):
         loc1 = similarity_matrix[first_hdv_column_loc]
         loc2 = similarity_matrix[second_hdv_column_loc]
-        return -1*dist.cosine(loc1,loc2)+1
+        return -1*dist.cosine(loc1,loc2)+1 # thanks to Rick Dale for this snippet
     word_pairs['cosine'] = np.apply_along_axis(calculate_similarity_matrix,1,word_pairs,3,5)
 
     ###

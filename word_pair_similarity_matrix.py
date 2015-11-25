@@ -142,7 +142,7 @@ def all_in_one_similiarity_matrix(unique_word_vector,target_dictionary,target_ls
     
     # create a function to look up the dictionary location and return as tuple-string
     def word_lookup(word_vector,dictionary):
-        return str(dictionary.doc2bow([vector[0]]))
+        return str(dictionary.doc2bow([word_vector[0]]))
 
     # apply new function to find words, then convert from tuple to 
     lookup_table['loc'] = np.apply_along_axis(word_lookup,1,lookup_table,target_dictionary)

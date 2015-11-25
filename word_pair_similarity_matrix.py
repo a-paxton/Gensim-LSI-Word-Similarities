@@ -15,6 +15,7 @@ import pandas as pd
 import scipy.spatial.distance as dist
 import gensim, itertools
 import numpy as np
+from ast import literal_eval
 
 ####
         
@@ -27,12 +28,20 @@ def create_lsi_lookup_table(unique_word_vector,target_dictionary,target_lsi_mode
     # nd: number of dimensions used in LSI creation
 
     # create lookup table from word vector
-    lookup_table = pd.DataFrame([unique_word_vector,target_dictionary.doc2bow(unique_word_vector)]).transpose()
-    lookup_table.columns = ['word','loc']
+    lookup_table = pd.DataFrame(unique_word_vector,columns=['word'])
+    
+    # create a function to look up the dictionary location and return as tuple-string
+    def word_lookup(word_vector,dictionary):
+        return str(dictionary.doc2bow([word_vector[0]]))
+
+    # apply new function to find words, then convert from tuple to 
+    lookup_table['loc'] = np.apply_along_axis(word_lookup,1,lookup_table,target_dictionary)
+    lookup_table['loc'] = lookup_table['loc'].replace('\]|\[','',regex=True)
+    lookup_table['loc'] = lookup_table['loc'].apply(literal_eval)
+
+    # look up hyperdimensional vectors for each word and add them to the lookup table
     lookup_table['hdv'] = 0
     lookup_table['hdv'] = lookup_table['hdv'].astype(object)
-    
-    # look up hyperdimensional vectors for each word and add them to the lookup table
     for next_word in lookup_table['word']:
         next_location = lookup_table['loc'].loc[lookup_table['word']==next_word].index[0]
         next_hdv = np.array([val for (dim, val) in target_lsi_model[[lookup_table['loc'].loc[next_location]]]], dtype=object)
@@ -127,13 +136,22 @@ def all_in_one_similiarity_matrix(unique_word_vector,target_dictionary,target_ls
     ###
 
     # STEP ONE: create LSI lookup table (standalone: create_lsi_lookup_table)
+
     # create lookup table from word vector
-    lookup_table = pd.DataFrame([unique_word_vector,target_dictionary.doc2bow(unique_word_vector)]).transpose()
-    lookup_table.columns = ['word','loc']
+    lookup_table = pd.DataFrame(unique_word_vector,columns=['word'])
+    
+    # create a function to look up the dictionary location and return as tuple-string
+    def word_lookup(word_vector,dictionary):
+        return str(dictionary.doc2bow([vector[0]]))
+
+    # apply new function to find words, then convert from tuple to 
+    lookup_table['loc'] = np.apply_along_axis(word_lookup,1,lookup_table,target_dictionary)
+    lookup_table['loc'] = lookup_table['loc'].replace('\]|\[','',regex=True)
+    lookup_table['loc'] = lookup_table['loc'].apply(literal_eval)
+
+    # look up hyperdimensional vectors for each word and add them to the lookup table
     lookup_table['hdv'] = 0
     lookup_table['hdv'] = lookup_table['hdv'].astype(object)
-    
-    # look up hyperdimensional vectors for each word and add them to the lookup table
     for next_word in lookup_table['word']:
         next_location = lookup_table['loc'].loc[lookup_table['word']==next_word].index[0]
         next_hdv = np.array([val for (dim, val) in target_lsi_model[[lookup_table['loc'].loc[next_location]]]], dtype=object)
@@ -183,7 +201,7 @@ def all_in_one_similiarity_matrix(unique_word_vector,target_dictionary,target_ls
     def calculate_similarity_matrix(similarity_matrix,first_hdv_column_loc,second_hdv_column_loc):
         loc1 = similarity_matrix[first_hdv_column_loc]
         loc2 = similarity_matrix[second_hdv_column_loc]
-        return -1*dist.cosine(loc1,loc2)+1 # thanks to Rick Dale for this snippet
+        return -1 * dist.cosine(loc1,loc2) + 1 # thanks to Rick Dale for this snippet
     word_pairs['cosine'] = np.apply_along_axis(calculate_similarity_matrix,1,word_pairs,3,5)
 
     ###

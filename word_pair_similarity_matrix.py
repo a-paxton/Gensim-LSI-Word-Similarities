@@ -51,7 +51,7 @@ def create_lsi_lookup_table(unique_word_vector,target_dictionary,target_lsi_mode
             lookup_table['hdv'].loc[next_location] = 0
             lookup_table['loc'].loc[next_location] = 0
 
-    # remove any lines that didn't have a full 300 dimensions and then reset the index
+    # remove any lines that didn't have the full nd dimensions and then reset the index
     lookup_table = lookup_table.loc[-(lookup_table['loc']==0)].reset_index().drop(['index'],1)
 
     # spit out lookup table
@@ -161,7 +161,7 @@ def all_in_one_similiarity_matrix(unique_word_vector,target_dictionary,target_ls
             lookup_table['hdv'].loc[next_location] = 0
             lookup_table['loc'].loc[next_location] = 0
 
-    # remove any lines that didn't have a full 300 dimensions and then reset the index
+    # remove any lines that didn't have the full nd dimensions and then reset the index
     lookup_table = lookup_table.loc[-(lookup_table['loc']==0)].reset_index().drop(['index'],1)
 
     ###

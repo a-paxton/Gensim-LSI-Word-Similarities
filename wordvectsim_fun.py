@@ -23,4 +23,4 @@ def wordvectsim(word_vector2d,target_dictionary,target_lsi_model):
     
     # if the word isn't in the topic space, kick back an error
     else:
-        raise RuntimeError('Word pair not found in topic space: '+str(word_vector2d[0]])+','+str(word_vector2d[1]])+'.')
+        raise RuntimeError('Word pair not found in topic space: '+str(word_vector2d[0])+','+str(word_vector2d[1])+'.')
